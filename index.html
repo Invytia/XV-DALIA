@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV Años - Dalia Marleny</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Paleta Pantone */
+            --dark-ruby: #70000E;
+            --armor-wash: #030303;
+            --cultured-pearl: #F5F4F2;
+            --catacomb-walls: #DCD7D4;
+            --creme-white: #C3B79D;
+            --meteorite: #2C2929;
+
+            /* Tipografías */
+            --fuente-titulos: 'Playfair Display', serif;
+            --fuente-texto: 'Montserrat', sans-serif;
+            --fuente-nombres: 'Great Vibes', cursive;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--fuente-texto);
+            color: var(--cultured-pearl);
+            background-color: var(--armor-wash);
+            overflow-x: hidden;
+        }
+
+        /* --- FONDOS Y SECCIONES EDITORIALES --- */
+        .bg-dark { background-color: var(--armor-wash); }
+        .bg-meteorite { background-color: var(--meteorite); }
+        .bg-ruby { background-color: var(--dark-ruby); color: var(--cultured-pearl); }
+        .bg-pearl { background-color: var(--cultured-pearl); color: var(--armor-wash); }
+
+        #particles-js { position: fixed; width: 100vw; height: 100vh; top: 0; left: 0; z-index: -1; pointer-events: none; }
+
+        .glass-card {
+            background: rgba(44, 41, 41, 0.7); /* Meteorite con transparencia */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(195, 183, 157, 0.2); /* Creme White */
+            border-radius: 0; /* Estilo más editorial y recto */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-card-light {
+            background: rgba(245, 244, 242, 0.9);
+            border: 1px solid var(--dark-ruby);
+            color: var(--armor-wash);
+        }
+
+        /* --- SOBRE (TEMA OSCURO) --- */
+        #envelope-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle, var(--meteorite) 0%, var(--armor-wash) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1.5s ease; }
+        .envelope-wrapper { position: relative; width: 320px; height: 220px; cursor: pointer; animation: float 3s ease-in-out infinite; perspective: 1000px; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+        .envelope-body { position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--dark-ruby), #4a0008); border-radius: 5px; z-index: 2; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
+        .envelope-flap { position: absolute; top: 0; left: 0; width: 100%; height: 120px; background: linear-gradient(to bottom, #5c000b, var(--dark-ruby)); clip-path: polygon(0 0, 50% 100%, 100% 0); transform-origin: top; transition: transform 0.6s ease-in-out; z-index: 4; }
+        .envelope-letter { position: absolute; bottom: 10px; left: 10px; width: 300px; height: 200px; background: var(--cultured-pearl); border-radius: 3px; display: flex; justify-content: center; align-items: center; z-index: 1; transition: transform 1s ease-in-out 0.6s; border: 1px solid var(--creme-white); }
+        .envelope-letter h2 { font-family: var(--fuente-nombres); font-size: 2.8rem; color: var(--dark-ruby); text-align: center; }
+        .wax-seal { position: absolute; top: 100px; left: 50%; transform: translateX(-50%); width: 60px; height: 60px; background: radial-gradient(circle, #dfcdab 0%, var(--creme-white) 100%); border-radius: 50%; z-index: 5; display: flex; justify-content: center; align-items: center; font-family: var(--fuente-titulos); color: var(--armor-wash); font-size: 1.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.6); border: 2px solid #a3957b; }
+        .open-envelope .wax-seal { opacity: 0; transition: opacity 0.3s; }
+        .open-envelope .envelope-flap { transform: rotateX(180deg); z-index: 0; }
+        .open-envelope .envelope-letter { transform: translateY(-130px); z-index: 3; }
+
+        /* --- CONTENIDO --- */
+        #main-content { display: none; opacity: 0; transition: opacity 2s ease-in; position: relative; z-index: 10; }
+        section { padding: 100px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;}
+        
+        h1 { font-family: var(--fuente-nombres); font-size: 5.5rem; color: var(--cultured-pearl); text-shadow: 0 0 20px rgba(195, 183, 157, 0.3); }
+        h2 { font-family: var(--fuente-titulos); font-size: 2.5rem; margin-bottom: 30px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
+        .text-accent { color: var(--creme-white); font-family: var(--fuente-nombres); font-size: 3.5rem; text-transform: none; display: block; margin-bottom: 10px; line-height: 0.8;}
+
+        /* --- HERO --- */
+        .hero-container {
+            min-height: 100vh;
+            width: 100%;
+            background: linear-gradient(rgba(3, 3, 3, 0.8), rgba(112, 0, 14, 0.4)), url('assets/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* --- CARRETEL (GALERÍA MOMENTOS) --- */
+        .carousel-container { width: 100%; overflow: hidden; position: relative; padding: 40px 0; }
+        .carousel-track { display: flex; gap: 30px; width: fit-content; animation: scrollLoop 25s linear infinite; }
+        .carousel-track:hover { animation-play-state: paused; }
+        .carousel-item { width: 280px; height: 400px; object-fit: cover; cursor: pointer; border: 2px solid var(--creme-white); box-shadow: 0 10px 30px rgba(0,0,0,0.8); transition: transform 0.5s ease; filter: grayscale(30%); }
+        .carousel-item:hover { transform: scale(1.05); filter: grayscale(0%); border-color: var(--cultured-pearl); z-index: 2; }
+        @keyframes scrollLoop { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-280px * 3 - 90px)); } }
+
+        /* --- LIGHTBOX --- */
+        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3,3,3,0.95); display: none; justify-content: center; align-items: center; z-index: 10000; backdrop-filter: blur(5px); }
+        #lightbox img { max-width: 90%; max-height: 85%; border: 2px solid var(--creme-white); box-shadow: 0 0 40px rgba(195,183,157,0.3); }
+        #lightbox .close-btn { position: absolute; top: 30px; right: 40px; color: var(--cultured-pearl); font-size: 45px; cursor: pointer; transition: 0.3s; }
+        #lightbox .close-btn:hover { color: var(--dark-ruby); transform: scale(1.1); }
+
+        /* --- FORMULARIOS --- */
+        input, select, textarea { width: 100%; padding: 18px; margin-bottom: 20px; border-radius: 0; border: 1px solid var(--creme-white); background: rgba(3, 3, 3, 0.6); color: var(--cultured-pearl); font-family: var(--fuente-texto); font-size: 1rem; outline: none; transition: border 0.3s; }
+        input:focus, select:focus, textarea:focus { border-color: var(--dark-ruby); background: rgba(3, 3, 3, 0.9); }
+        .bg-pearl input, .bg-pearl select, .bg-pearl textarea { background: rgba(255,255,255,0.8); border: 1px solid var(--dark-ruby); color: var(--armor-wash); }
+        
+        .btn { display: inline-block; padding: 18px 40px; background: var(--dark-ruby); color: var(--cultured-pearl); text-decoration: none; border-radius: 0; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--dark-ruby); cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden; z-index: 1; }
+        .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--creme-white); transition: all 0.4s ease; z-index: -1; }
+        .btn:hover::before { left: 0; }
+        .btn:hover { color: var(--armor-wash); border-color: var(--creme-white); }
+        
+        .btn-whatsapp { background: transparent; border: 1px solid #25D366; color: #25D366; }
+        .btn-whatsapp::before { background: #25D366; }
+        .btn-whatsapp:hover { color: var(--armor-wash); border-color: #25D366; }
+
+        /* --- EXTRAS --- */
+        .timer-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+        .time-box { padding: 25px 15px; min-width: 110px; border-top: 3px solid var(--dark-ruby); text-align: center; background: rgba(44, 41, 41, 0.4); }
+        .time-box span { display: block; font-family: var(--fuente-titulos); font-size: 3.5rem; color: var(--creme-white); line-height: 1; margin-bottom: 5px; }
+        .time-box p { letter-spacing: 2px; font-size: 0.8rem; text-transform: uppercase; color: var(--catacomb-walls); }
+
+        .btn-small { display: inline-block; padding: 12px 25px; margin: 5px; background: transparent; color: var(--creme-white); border: 1px solid var(--creme-white); text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        .btn-small:hover { background: var(--creme-white); color: var(--armor-wash); }
+
+        .music-btn { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; border-radius: 50%; background: var(--dark-ruby); border: 2px solid var(--creme-white); color: var(--cultured-pearl); font-size: 1.3rem; cursor: pointer; z-index: 10001; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5); transition: all 0.3s ease; }
+        .music-btn:hover { transform: scale(1.1); background: var(--creme-white); color: var(--dark-ruby); }
+
+        /* --- ITINERARIO --- */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; padding: 40px 0; }
+        .timeline::before { content: ''; position: absolute; left: 50%; width: 2px; height: 100%; background: var(--creme-white); opacity: 0.5; }
+        .timeline-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px; position: relative; width: 100%; }
+        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+        .timeline-content { width: 42%; padding: 30px; text-align: center; border-left: 3px solid var(--dark-ruby); }
+        .timeline-item:nth-child(even) .timeline-content { border-left: none; border-right: 3px solid var(--dark-ruby); }
+        .timeline-icon { position: absolute; left: 50%; transform: translateX(-50%); background: var(--armor-wash); border: 2px solid var(--creme-white); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2; color: var(--creme-white); font-size: 1.2rem; }
+
+        .map-container { width: 100%; margin-top: 25px; border: 1px solid var(--creme-white); padding: 5px; background: rgba(255,255,255,0.05); }
+        .map-container iframe { width: 100%; height: 250px; display: block; filter: grayscale(40%) contrast(1.2); }
+
+        /* --- ANIMACIONES PREMIUM DE ENTRADA --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) all; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .fade-in { opacity: 0; transition: opacity 1.5s ease; }
+        .fade-in.active { opacity: 1; }
+
+        .slide-left { opacity: 0; transform: translateX(-50px); transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) all; }
+        .slide-left.active { opacity: 1; transform: translateX(0); }
+
+        .slide-right { opacity: 0; transform: translateX(50px); transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) all; }
+        .slide-right.active { opacity: 1; transform: translateX(0); }
+
+        .scale-up { opacity: 0; transform: scale(0.9); transition: 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) all; }
+        .scale-up.active { opacity: 1; transform: scale(1); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3.5rem; }
+            .timeline::before { left: 30px; }
+            .timeline-item, .timeline-item:nth-child(even) { flex-direction: column; align-items: flex-end; }
+            .timeline-content { width: 80%; text-align: left; border-left: 3px solid var(--dark-ruby) !important; border-right: none !important; margin-bottom: 20px;}
+            .timeline-icon { left: 30px; }
+            section { padding: 70px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- AUDIO -->
+    <audio id="bgMusic" loop>
+        <source src="assets/song.mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicToggleBtn" class="music-btn" onclick="toggleMusic()">
+        <i class="fa-solid fa-pause"></i>
+    </button>
+
+    <!-- PANTALLA DEL SOBRE -->
+    <div id="envelope-screen">
+        <div class="envelope-wrapper" id="envelope">
+            <div class="envelope-letter"><h2>Dalia<br>Marleny</h2></div>
+            <div class="envelope-flap"></div>
+            <div class="envelope-body"></div>
+            <div class="wax-seal">D</div>
+        </div>
+        <div style="margin-top: 50px; letter-spacing: 4px; text-transform: uppercase; font-size: 0.85rem; color: var(--catacomb-walls); animation: fade 2s infinite alternate;">Toca para descubrir</div>
+    </div>
+    <style>@keyframes fade { from { opacity: 0.5; } to { opacity: 1; } }</style>
+
+    <div id="particles-js"></div>
+
+    <div id="main-content">
+        
+        <!-- HERO -->
+        <section class="hero-container bg-dark" style="padding:0;">
+            <div class="glass-card scale-up" style="padding: 60px 30px; width: 90%; max-width: 700px;">
+                <div style="letter-spacing: 6px; color: var(--creme-white); margin-bottom: 15px; font-size: 0.9rem; text-transform: uppercase;">Te invito a celebrar mis XV Años</div>
+                <h1 class="fade-in delay-1">Dalia Marleny</h1>
+                <p style="font-weight: 400; margin-top: 25px; letter-spacing: 4px; color: var(--catacomb-walls); font-size: 1.1rem;" class="fade-in delay-2">05 DE DICIEMBRE DE 2026</p>
+            </div>
+        </section>
+
+        <!-- COUNTDOWN -->
+        <section class="bg-meteorite">
+            <h2 class="reveal"><span class="text-accent">Faltan</span> para el gran día</h2>
+            <div class="timer-container reveal">
+                <div class="time-box"><span id="days">00</span><p>Días</p></div>
+                <div class="time-box"><span id="hours">00</span><p>Hrs</p></div>
+                <div class="time-box"><span id="minutes">00</span><p>Min</p></div>
+                <div class="time-box"><span id="seconds">00</span><p>Seg</p></div>
+            </div>
+            <p class="reveal" style="margin-top: 50px; font-style: italic; font-family: var(--fuente-titulos); font-size: 1.5rem; color: var(--catacomb-walls); line-height: 1.8; max-width: 800px;">
+                "Gracias por ser parte de este gran día!!"
+            </p>
+        </section>
+
+        <!-- PADRES -->
+        <section class="bg-dark">
+            <h2 class="reveal">Con la bendición de Dios y mis Padres</h2>
+            <div class="glass-card slide-left" style="padding: 50px 30px; max-width: 700px; width: 100%;">
+                <p style="font-family: var(--fuente-titulos); font-size: 1.8rem; color: var(--creme-white); line-height: 1.5;">
+                    Belem Martínez Santiago<br>
+                    <span style="font-size: 1.2rem; color: var(--catacomb-walls); font-family: var(--fuente-texto); margin: 10px 0; display: inline-block;">&</span><br>
+                    Mario Santiago Torres
+                </p>
+            </div>
+        </section>
+
+        <!-- UBICACIONES -->
+        <section class="bg-ruby">
+            <h2 class="reveal" style="color: var(--creme-white);"><span class="text-accent" style="color: var(--armor-wash);">Dónde y Cuándo</span> Celebraremos</h2>
+            
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; width: 100%; max-width: 1100px;">
+                
+                <div class="glass-card-light slide-left" style="padding: 40px; flex: 1; min-width: 320px; position: relative;">
+                    <i class="fa-solid fa-church" style="font-size: 3rem; color: var(--dark-ruby); margin-bottom: 20px;"></i>
+                    <h3 style="font-family: var(--fuente-titulos); font-size: 2rem; margin-bottom: 10px;">Ceremonia</h3>
+                    <p style="font-weight: 600; letter-spacing: 2px; color: var(--dark-ruby); font-size: 1.2rem;">6:00 P.M.</p>
+                    <p style="margin: 15px 0; font-size: 1.1rem; font-weight: 500;">Parroquia Nuestra Señora de Guadalupe</p>
+                    
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3587.229140154646!2d-100.2904788!3d25.960524399999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86628b63b36a0459%3A0xb0a9db5687facfcf!2sParroquia%20Nuestra%20Se%C3%B1ora%20de%20Guadalupe!5e0!3m2!1ses-419!2smx!4v1785722114406!5m2!1ses-419!2smx" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                    </div>
+                    
+                    <div style="margin-top: 25px;">
+                        <a href="https://maps.app.goo.gl/Xqo4WMgoAEfZazFP9?g_st=ipc" target="_blank" class="btn" style="padding: 12px 25px; font-size: 0.9rem;"><i class="fa-solid fa-map-location-dot"></i> GPS</a>
+                    </div>
+                </div>
+                
+                <div class="glass-card-light slide-right" style="padding: 40px; flex: 1; min-width: 320px;">
+                    <i class="fa-solid fa-champagne-glasses" style="font-size: 3rem; color: var(--dark-ruby); margin-bottom: 20px;"></i>
+                    <h3 style="font-family: var(--fuente-titulos); font-size: 2rem; margin-bottom: 10px;">Recepción</h3>
+                    <p style="font-weight: 600; letter-spacing: 2px; color: var(--dark-ruby); font-size: 1.2rem;">7:00 P.M.</p>
+                    <p style="margin: 15px 0; font-size: 1.1rem; font-weight: 500;">Quinta Las Palmas</p>
+                    
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3587.325805556696!2d-100.31762289999999!3d25.9573531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86628b007d1e7e23%3A0xdb613d9292f9c729!2sQuinta%20las%20Palmas!5e0!3m2!1ses-419!2smx!4v1785722216328!5m2!1ses-419!2smx" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                    </div>
+
+                    <div style="margin-top: 25px;">
+                        <a href="https://maps.app.goo.gl/ckNzP5fXgzcE3qKdA?g_st=ipc" target="_blank" class="btn" style="padding: 12px 25px; font-size: 0.9rem;"><i class="fa-solid fa-map-location-dot"></i> GPS</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ITINERARIO -->
+        <section class="bg-meteorite">
+            <h2 class="reveal"><span class="text-accent">Itinerario</span></h2>
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-icon"><i class="fa-solid fa-church"></i></div>
+                    <div class="timeline-content glass-card">
+                        <h4 style="font-family: var(--fuente-titulos); font-size: 1.5rem; color: var(--creme-white);">Ceremonia</h4>
+                        <p style="margin-top: 10px; color: var(--catacomb-walls);">6:00 P.M.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+                    <div class="timeline-content glass-card">
+                        <h4 style="font-family: var(--fuente-titulos); font-size: 1.5rem; color: var(--creme-white);">Recepción en Quinta</h4>
+                        <p style="margin-top: 10px; color: var(--catacomb-walls);">7:00 P.M.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <div class="timeline-content glass-card">
+                        <h4 style="font-family: var(--fuente-titulos); font-size: 1.5rem; color: var(--creme-white);">Cena</h4>
+                        <p style="margin-top: 10px; color: var(--catacomb-walls);">8:00 P.M.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MOMENTOS / GALERIA -->
+        <section class="bg-dark" style="padding: 60px 0;">
+            <h2 class="reveal" style="margin-bottom: 50px;">Momentos</h2>
+            <div class="carousel-container reveal">
+                <div class="carousel-track">
+                    <img src="assets/gallery1.jpg" class="carousel-item" onclick="openLightbox(this.src)" alt="Galeria">
+                    <img src="assets/gallery2.jpg" class="carousel-item" onclick="openLightbox(this.src)" alt="Galeria">
+                    <img src="assets/gallery3.jpg" class="carousel-item" onclick="openLightbox(this.src)" alt="Galeria">
+                    <img src="assets/gallery1.jpg" class="carousel-item" onclick="openLightbox(this.src)" alt="Galeria">
+                    <img src="assets/gallery2.jpg" class="carousel-item" onclick="openLightbox(this.src)" alt="Galeria">
+                    <img src="assets/gallery3.jpg" class="carousel-item" onclick="openLightbox(this.src)" alt="Galeria">
+                </div>
+            </div>
+        </section>
+
+        <!-- DETALLES (VESTIMENTA Y REGALOS) -->
+        <section class="bg-meteorite">
+            <div class="glass-card scale-up" style="padding: 50px 30px; margin-bottom: 40px; width: 100%; max-width: 800px; border-top: 4px solid var(--dark-ruby);">
+                <i class="fa-solid fa-user-tie" style="font-size: 3rem; color: var(--creme-white); margin-bottom: 20px;"></i>
+                <h3 style="font-family: var(--fuente-titulos); font-size: 2.2rem; margin-bottom: 15px;">Código de Vestimenta</h3>
+                <p style="font-weight: 600; letter-spacing: 4px; font-size: 1.2rem; margin-bottom: 15px; color: var(--cultured-pearl);">FORMAL</p>
+                <p style="color: var(--catacomb-walls); font-style: italic;">Por favor, evitar vestir de color negro, rojo y plateado.</p>
+            </div>
+            
+            <div class="glass-card scale-up" style="padding: 50px 30px; width: 100%; max-width: 800px; border-top: 4px solid var(--creme-white);">
+                <i class="fa-solid fa-envelope-open-text" style="font-size: 3rem; color: var(--creme-white); margin-bottom: 20px;"></i>
+                <h3 style="font-family: var(--fuente-titulos); font-size: 2.2rem; margin-bottom: 15px;">Mesa de Regalos</h3>
+                <p style="font-weight: 600; letter-spacing: 2px; font-size: 1.2rem; margin-bottom: 15px; color: var(--cultured-pearl); text-transform: uppercase;">Lluvia de Sobres</p>
+                <p style="color: var(--catacomb-walls); line-height: 1.6;">Es la tradición de regalar dinero en efectivo en un sobre el día del evento. ¡Gracias por tu detalle!</p>
+            </div>
+        </section>
+
+        <!-- CONFIRMACIÓN Y DESEOS (VIA WHATSAPP) -->
+        <section class="bg-pearl" style="padding-bottom: 100px;">
+            <h2 class="reveal" style="color: var(--dark-ruby);"><span class="text-accent" style="color: var(--armor-wash);">Acompáñame</span> en este día</h2>
+            
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; width: 100%; max-width: 1000px; margin-top: 30px;">
+                
+                <!-- CONFIRMACIÓN -->
+                <div class="glass-card-light slide-left" style="padding: 40px; flex: 1; min-width: 300px; text-align: left;">
+                    <h3 style="font-family: var(--fuente-titulos); font-size: 1.8rem; margin-bottom: 25px; text-align: center;">Confirmar Asistencia</h3>
+                    
+                    <input type="text" id="guestName" placeholder="Tu nombre completo">
+                    
+                    <select id="guestCount">
+                        <option value="" disabled selected>Pases a confirmar</option>
+                        <option value="1">1 Persona</option>
+                        <option value="2">2 Personas</option>
+                        <option value="3">3 Personas</option>
+                        <option value="4">4 Personas</option>
+                        <option value="5">5 Personas</option>
+                    </select>
+
+                    <select id="attendance">
+                        <option value="Sí asistiré con mucho gusto">Sí asistiré</option>
+                        <option value="Lamentablemente no podré asistir">No podré asistir</option>
+                    </select>
+
+                    <button class="btn btn-whatsapp" style="width: 100%; text-align: center;" onclick="sendConfirmationWhatsApp()">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem; margin-right: 8px;"></i> Enviar Confirmación
+                    </button>
+                </div>
+
+                <!-- MURO DE DESEOS -->
+                <div class="glass-card-light slide-right" style="padding: 40px; flex: 1; min-width: 300px; text-align: left;">
+                    <h3 style="font-family: var(--fuente-titulos); font-size: 1.8rem; margin-bottom: 25px; text-align: center;">Muro de Deseos</h3>
+                    <p style="text-align: center; margin-bottom: 20px; font-size: 0.9rem; color: var(--meteorite);">Mándame un mensaje especial directamente a mi WhatsApp.</p>
+                    
+                    <input type="text" id="wishName" placeholder="Tu nombre">
+                    <textarea id="wishMessage" placeholder="Escribe tus felicitaciones o buenos deseos..." rows="4"></textarea>
+                    
+                    <button class="btn btn-whatsapp" style="width: 100%; text-align: center;" onclick="sendWishWhatsApp()">
+                        <i class="fa-regular fa-paper-plane" style="font-size: 1.2rem; margin-right: 8px;"></i> Enviar Mensaje
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <img id="lightboxImg" src="">
+    </div>
+
+    <script>
+        // --- 1. APERTURA DEL SOBRE Y PARTICULAS ---
+        const envelope = document.getElementById('envelope');
+        envelope.addEventListener('click', () => {
+            envelope.classList.add('open-envelope');
+            setTimeout(() => {
+                document.getElementById('envelope-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('envelope-screen').style.display = 'none';
+                    const main = document.getElementById('main-content');
+                    main.style.display = 'block';
+                    
+                    setTimeout(() => { 
+                        main.style.opacity = '1'; 
+                        initScrollAnimations(); 
+                        createParticles(); 
+                        
+                        // Iniciar música
+                        const music = document.getElementById('bgMusic');
+                        const musicBtn = document.getElementById('musicToggleBtn');
+                        music.play().catch(e => console.log("El navegador requiere interacción previa para el audio."));
+                        musicBtn.style.display = 'flex';
+                    }, 50);
+                }, 1500);
+            }, 1800);
+        });
+
+        // --- 2. CONTROL DE MÚSICA ---
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic');
+            const icon = document.querySelector('#musicToggleBtn i');
+            
+            if (music.paused) {
+                music.play();
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+            } else {
+                music.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+            }
+        }
+
+        // --- 3. ANIMACIONES AL HACER SCROLL (INTERSECTION OBSERVER) ---
+        function initScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.reveal, .fade-in, .slide-left, .slide-right, .scale-up');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Opcional: observer.unobserve(entry.target); // Descomentar si solo quieres que se anime una vez
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+            animatedElements.forEach(el => observer.observe(el));
+        }
+
+        // --- 4. PARTICULAS (TEMA OSCURO/DORADO) ---
+        function createParticles() {
+            const container = document.getElementById('particles-js');
+            for (let i = 0; i < 40; i++) {
+                let p = document.createElement('div');
+                let size = Math.random() * 3 + 1;
+                // Alternar colores entre plata y oro ligero para contrastar con el fondo oscuro
+                let color = Math.random() > 0.5 ? 'rgba(195,183,157,0.4)' : 'rgba(220,215,212,0.3)';
+                
+                p.style.cssText = `position:absolute; width:${size}px; height:${size}px; background:${color}; border-radius:50%; bottom:-10px; left:${Math.random()*100}vw; animation: floatUp ${Math.random()*8+7}s linear infinite; box-shadow: 0 0 8px ${color};`;
+                container.appendChild(p);
+            }
+        }
+        const styleSheet = document.createElement('style');
+        styleSheet.innerHTML = `@keyframes floatUp { 100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; } }`;
+        document.head.appendChild(styleSheet);
+
+        // --- 5. CUENTA REGRESIVA ---
+        const targetDate = new Date("Dec 5, 2026 18:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance > 0) {
+                document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }
+        }, 1000);
+
+        // --- 6. LIGHTBOX GALERÍA ---
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // --- 7. WHATSAPP (REEMPLAZA APPSCRIPT) ---
+        const WHATSAPP_NUMBER = "528114732788";
+
+        function sendConfirmationWhatsApp() {
+            const name = document.getElementById('guestName').value.trim();
+            const count = document.getElementById('guestCount').value;
+            const attend = document.getElementById('attendance').value;
+
+            if(!name || !count) {
+                alert("Por favor, ingresa tu nombre y el número de pases para continuar.");
+                return;
+            }
+
+            const text = `¡Hola Dalia! Soy *${name}*.\n\nTe escribo para confirmar que *${attend}* a tus XV Años.\nSeremos *${count} persona(s)* en total.\n\n¡Gracias por la invitación!`;
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        function sendWishWhatsApp() {
+            const name = document.getElementById('wishName').value.trim();
+            const message = document.getElementById('wishMessage').value.trim();
+
+            if(!name || !message) {
+                alert("Por favor, escribe tu nombre y tu mensaje antes de enviarlo.");
+                return;
+            }
+
+            const text = `¡Hola Dalia! Soy *${name}* y te escribo del Muro de Deseos:\n\n"${message}"\n\n¡Felicidades!`;
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+            
+            // Limpiar campos después de intentar abrir WhatsApp
+            document.getElementById('wishName').value = "";
+            document.getElementById('wishMessage').value = "";
+        }
+
+    </script>
+</body>
+</html>
