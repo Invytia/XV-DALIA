@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis XV Años - Dalia Marleny</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Se agregó Dancing Script para la tarjeta del sobre -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -21,6 +22,7 @@
             --fuente-titulos: 'Playfair Display', serif;
             --fuente-texto: 'Montserrat', sans-serif;
             --fuente-nombres: 'Great Vibes', cursive;
+            --fuente-sobre: 'Dancing Script', cursive; /* Nueva fuente legible para el sobre */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,16 +109,16 @@
             box-sizing: border-box;
         }
         
-        /* CORRECCIÓN DE LA FUENTE DEL SOBRE */
+        /* FUENTE NUEVA Y LEGIBLE PARA LA TARJETA DEL SOBRE */
         .envelope-letter h2 { 
-            font-family: var(--fuente-nombres) !important; /* Fuerza Great Vibes */
-            font-size: 2.5rem !important; /* Tamaño contenido para que no desborde */
+            font-family: var(--fuente-sobre) !important; 
+            font-size: 3.2rem !important; 
             color: var(--dark-ruby); 
             text-align: center; 
             line-height: 1; 
             margin: 0; 
-            font-weight: 400 !important;
-            letter-spacing: 0px !important; /* Evita que el celular herede espaciados gigantes */
+            font-weight: 600 !important;
+            letter-spacing: 1px !important; 
             width: 100%;
         }
         
@@ -137,11 +139,10 @@
         .hero-container {
             min-height: 100vh;
             width: 100%;
-            /* Uso de gradiente radial para crear un destello rojo visible, y scroll en lugar de fixed */
             background: radial-gradient(circle at center, rgba(112, 0, 14, 0.7) 0%, rgba(3, 3, 3, 0.85) 100%), url('assets/hero.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: scroll; /* Vital para que iOS lo renderice bien */
+            background-attachment: scroll; 
         }
 
         /* --- CARRETEL (GALERÍA MOMENTOS) --- */
@@ -269,7 +270,7 @@
         
         @media (max-width: 380px) {
             .envelope-wrapper { --env-scale: 0.85; }
-            .envelope-letter h2 { font-size: 2.2rem !important; } 
+            .envelope-letter h2 { font-size: 2.6rem !important; } 
         }
     </style>
 </head>
@@ -286,7 +287,6 @@
     <!-- PANTALLA DEL SOBRE -->
     <div id="envelope-screen">
         <div class="envelope-wrapper" id="envelope">
-            <!-- Nombre garantizado en la fuente correcta y tamaño adecuado -->
             <div class="envelope-letter"><h2 style="animation: pulseName 2s infinite alternate;">Dalia Marleny</h2></div>
             <div class="envelope-flap"></div>
             <div class="envelope-body"></div>
