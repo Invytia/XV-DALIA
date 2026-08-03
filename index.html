@@ -76,7 +76,7 @@
             width: 320px; 
             height: 220px; 
             cursor: pointer; 
-            --env-scale: 1; /* Variable para escalar en celulares */
+            --env-scale: 1; 
             animation: float 3s ease-in-out infinite; 
             perspective: 1000px; 
         }
@@ -89,19 +89,35 @@
         .envelope-body { position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--dark-ruby), #4a0008); border-radius: 5px; z-index: 2; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
         .envelope-flap { position: absolute; top: 0; left: 0; width: 100%; height: 120px; background: linear-gradient(to bottom, #5c000b, var(--dark-ruby)); clip-path: polygon(0 0, 50% 100%, 100% 0); transform-origin: top; transition: transform 0.6s ease-in-out; z-index: 4; }
         
-        /* Tarjeta interior ajustada para un solo renglón */
-        .envelope-letter { position: absolute; bottom: 10px; left: 10px; width: 300px; height: 200px; background: var(--cultured-pearl); border-radius: 5px; display: flex; justify-content: center; align-items: center; z-index: 1; transition: transform 1s ease-in-out 0.6s; border: 1px solid var(--creme-white); padding: 20px;}
+        .envelope-letter { 
+            position: absolute; 
+            bottom: 10px; 
+            left: 10px; 
+            width: 300px; 
+            height: 200px; 
+            background: var(--cultured-pearl); 
+            border-radius: 5px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 1; 
+            transition: transform 1s ease-in-out 0.6s; 
+            border: 1px solid var(--creme-white); 
+            padding: 20px;
+            box-sizing: border-box;
+        }
         
-        /* Ajuste de fuente inspirado en la imagen proporcionada */
+        /* CORRECCIÓN DE LA FUENTE DEL SOBRE */
         .envelope-letter h2 { 
-            font-family: var(--fuente-nombres); 
-            font-size: 2.8rem; /* Tamaño optimizado para entrar en la tarjeta */
+            font-family: var(--fuente-nombres) !important; /* Fuerza Great Vibes */
+            font-size: 2.5rem !important; /* Tamaño contenido para que no desborde */
             color: var(--dark-ruby); 
             text-align: center; 
             line-height: 1; 
-            margin-top: -15px; 
-            font-weight: 400;
-            white-space: nowrap; /* Fuerza a que se mantenga en un solo renglón */
+            margin: 0; 
+            font-weight: 400 !important;
+            letter-spacing: 0px !important; /* Evita que el celular herede espaciados gigantes */
+            width: 100%;
         }
         
         .wax-seal { position: absolute; top: 100px; left: 50%; transform: translateX(-50%); width: 60px; height: 60px; background: radial-gradient(circle, #dfcdab 0%, var(--creme-white) 100%); border-radius: 50%; z-index: 5; display: flex; justify-content: center; align-items: center; font-family: var(--fuente-titulos); color: var(--armor-wash); font-size: 1.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.6); border: 2px solid #a3957b; }
@@ -117,14 +133,15 @@
         h2 { font-family: var(--fuente-titulos); font-size: 2.5rem; margin-bottom: 30px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
         .text-accent { color: var(--creme-white); font-family: var(--fuente-nombres); font-size: 3.5rem; text-transform: none; display: block; margin-bottom: 10px; line-height: 0.8;}
 
-        /* --- HERO --- */
+        /* --- HERO CORREGIDO PARA MOSTRAR EL ROJO EN MÓVILES --- */
         .hero-container {
             min-height: 100vh;
             width: 100%;
-            background: linear-gradient(rgba(3, 3, 3, 0.8), rgba(112, 0, 14, 0.4)), url('assets/hero.jpg');
+            /* Uso de gradiente radial para crear un destello rojo visible, y scroll en lugar de fixed */
+            background: radial-gradient(circle at center, rgba(112, 0, 14, 0.7) 0%, rgba(3, 3, 3, 0.85) 100%), url('assets/hero.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            background-attachment: scroll; /* Vital para que iOS lo renderice bien */
         }
 
         /* --- CARRETEL (GALERÍA MOMENTOS) --- */
@@ -240,7 +257,6 @@
         /* --- MEDIA QUERIES PARA CELULARES --- */
         @media (max-width: 768px) {
             h1 { font-size: 3.5rem; }
-            /* Escala el contenedor del sobre en pantallas pequeñas para que no se desborde */
             .envelope-wrapper { --env-scale: 0.9; }
             .timeline::before { left: 30px; top: 40px; height: calc(100% - 80px); }
             .timeline-item, .timeline-item:nth-child(even) { flex-direction: column; align-items: flex-end; }
@@ -251,10 +267,9 @@
             .time-box { min-width: 65px; padding: 15px 5px; }
         }
         
-        /* Ajuste extra para celulares muy angostos */
         @media (max-width: 380px) {
-            .envelope-wrapper { --env-scale: 0.8; }
-            .envelope-letter h2 { font-size: 2.5rem; } /* Asegura que el nombre entre incluso si el celular es muy angosto */
+            .envelope-wrapper { --env-scale: 0.85; }
+            .envelope-letter h2 { font-size: 2.2rem !important; } 
         }
     </style>
 </head>
@@ -271,7 +286,7 @@
     <!-- PANTALLA DEL SOBRE -->
     <div id="envelope-screen">
         <div class="envelope-wrapper" id="envelope">
-            <!-- Nombre en un solo renglón -->
+            <!-- Nombre garantizado en la fuente correcta y tamaño adecuado -->
             <div class="envelope-letter"><h2 style="animation: pulseName 2s infinite alternate;">Dalia Marleny</h2></div>
             <div class="envelope-flap"></div>
             <div class="envelope-body"></div>
