@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis XV Años - Dalia Marleny</title>
-    <!-- Se agregó Dancing Script para la tarjeta del sobre -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Se agregó la fuente Alex Brush, muy elegante y clara para el sobre -->
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -22,7 +22,7 @@
             --fuente-titulos: 'Playfair Display', serif;
             --fuente-texto: 'Montserrat', sans-serif;
             --fuente-nombres: 'Great Vibes', cursive;
-            --fuente-sobre: 'Dancing Script', cursive; /* Nueva fuente legible para el sobre */
+            --fuente-sobre: 'Alex Brush', cursive; /* Fuente nueva para la tarjeta */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -109,17 +109,18 @@
             box-sizing: border-box;
         }
         
-        /* FUENTE NUEVA Y LEGIBLE PARA LA TARJETA DEL SOBRE */
+        /* CORRECCIÓN DE LA FUENTE DEL SOBRE: Se elimina el uppercase global y se usa Alex Brush */
         .envelope-letter h2 { 
             font-family: var(--fuente-sobre) !important; 
-            font-size: 3.2rem !important; 
+            font-size: 3.8rem !important; /* Ajustado para la proporción de Alex Brush */
             color: var(--dark-ruby); 
             text-align: center; 
             line-height: 1; 
             margin: 0; 
-            font-weight: 600 !important;
-            letter-spacing: 1px !important; 
+            font-weight: 400 !important;
+            letter-spacing: 0px !important; 
             width: 100%;
+            text-transform: none !important; /* ÉSTA ES LA CLAVE PARA QUE NO SE HAGA MAYÚSCULAS */
         }
         
         .wax-seal { position: absolute; top: 100px; left: 50%; transform: translateX(-50%); width: 60px; height: 60px; background: radial-gradient(circle, #dfcdab 0%, var(--creme-white) 100%); border-radius: 50%; z-index: 5; display: flex; justify-content: center; align-items: center; font-family: var(--fuente-titulos); color: var(--armor-wash); font-size: 1.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.6); border: 2px solid #a3957b; }
@@ -132,7 +133,10 @@
         section { padding: 100px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;}
         
         h1 { font-family: var(--fuente-nombres); font-size: 5.5rem; color: var(--cultured-pearl); text-shadow: 0 0 20px rgba(195, 183, 157, 0.3); line-height: 1.2; font-weight: 400;}
+        
+        /* Aquí estaba el problema global de mayúsculas (text-transform: uppercase) */
         h2 { font-family: var(--fuente-titulos); font-size: 2.5rem; margin-bottom: 30px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
+        
         .text-accent { color: var(--creme-white); font-family: var(--fuente-nombres); font-size: 3.5rem; text-transform: none; display: block; margin-bottom: 10px; line-height: 0.8;}
 
         /* --- HERO CORREGIDO PARA MOSTRAR EL ROJO EN MÓVILES --- */
@@ -270,7 +274,7 @@
         
         @media (max-width: 380px) {
             .envelope-wrapper { --env-scale: 0.85; }
-            .envelope-letter h2 { font-size: 2.6rem !important; } 
+            .envelope-letter h2 { font-size: 3.2rem !important; } 
         }
     </style>
 </head>
