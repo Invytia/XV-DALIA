@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis XV Años - Dalia Marleny</title>
-    <!-- Se agregaron fuentes adicionales y se optimizó la carga -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -46,7 +45,7 @@
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(195, 183, 157, 0.2);
-            border-radius: 12px; /* Un poco más suave */
+            border-radius: 12px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             transition: transform 0.4s ease;
         }
@@ -55,7 +54,6 @@
             transform: translateY(-5px);
         }
 
-        /* Diseño Modernizado para Tarjetas Claras (Formularios) */
         .glass-card-light {
             background: rgba(255, 255, 255, 0.98);
             border: 1px solid rgba(220, 215, 212, 0.8);
@@ -77,9 +75,8 @@
         .envelope-body { position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--dark-ruby), #4a0008); border-radius: 5px; z-index: 2; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
         .envelope-flap { position: absolute; top: 0; left: 0; width: 100%; height: 120px; background: linear-gradient(to bottom, #5c000b, var(--dark-ruby)); clip-path: polygon(0 0, 50% 100%, 100% 0); transform-origin: top; transition: transform 0.6s ease-in-out; z-index: 4; }
         
-        /* Ajuste de Fuente y Tarjeta del Sobre */
         .envelope-letter { position: absolute; bottom: 10px; left: 10px; width: 300px; height: 200px; background: var(--cultured-pearl); border-radius: 5px; display: flex; justify-content: center; align-items: center; z-index: 1; transition: transform 1s ease-in-out 0.6s; border: 1px solid var(--creme-white); padding: 20px;}
-        .envelope-letter h2 { font-family: var(--fuente-nombres); font-size: 2.2rem; color: var(--dark-ruby); text-align: center; line-height: 1.1; margin-top: -15px; text-shadow: 1px 1px 2px rgba(0,0,0,0.05);}
+        .envelope-letter h2 { font-family: var(--fuente-nombres); font-size: 3.5rem; color: var(--dark-ruby); text-align: center; line-height: 0.9; margin-top: -15px; font-weight: 400;}
         
         .wax-seal { position: absolute; top: 100px; left: 50%; transform: translateX(-50%); width: 60px; height: 60px; background: radial-gradient(circle, #dfcdab 0%, var(--creme-white) 100%); border-radius: 50%; z-index: 5; display: flex; justify-content: center; align-items: center; font-family: var(--fuente-titulos); color: var(--armor-wash); font-size: 1.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.6); border: 2px solid #a3957b; }
         .open-envelope .wax-seal { opacity: 0; transition: opacity 0.3s; }
@@ -90,7 +87,7 @@
         #main-content { display: none; opacity: 0; transition: opacity 2s ease-in; position: relative; z-index: 10; }
         section { padding: 100px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;}
         
-        h1 { font-family: var(--fuente-nombres); font-size: 5.5rem; color: var(--cultured-pearl); text-shadow: 0 0 20px rgba(195, 183, 157, 0.3); line-height: 1.2;}
+        h1 { font-family: var(--fuente-nombres); font-size: 5.5rem; color: var(--cultured-pearl); text-shadow: 0 0 20px rgba(195, 183, 157, 0.3); line-height: 1.2; font-weight: 400;}
         h2 { font-family: var(--fuente-titulos); font-size: 2.5rem; margin-bottom: 30px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
         .text-accent { color: var(--creme-white); font-family: var(--fuente-nombres); font-size: 3.5rem; text-transform: none; display: block; margin-bottom: 10px; line-height: 0.8;}
 
@@ -145,22 +142,21 @@
             box-shadow: 0 0 0 4px rgba(112, 0, 14, 0.1);
         }
         
-        /* Botones modernizados */
         .btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 35px; background: var(--dark-ruby); color: var(--cultured-pearl); text-decoration: none; border-radius: 8px; font-weight: 600; letter-spacing: 1.5px; border: none; cursor: pointer; transition: all 0.4s ease; box-shadow: 0 4px 15px rgba(112, 0, 14, 0.3); gap: 10px;}
         .btn:hover { background: #8f0012; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(112, 0, 14, 0.4); }
         
         .btn-whatsapp { background: #25D366; color: #ffffff; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); font-size: 1.05rem;}
         .btn-whatsapp:hover { background: #1ebd5a; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); }
 
-        /* --- CUENTA REGRESIVA (Un solo renglón) --- */
+        /* --- CUENTA REGRESIVA --- */
         .timer-container { 
             display: flex; 
             justify-content: center; 
             gap: 15px; 
-            flex-wrap: nowrap; /* Evita que salten de línea */
+            flex-wrap: nowrap; 
             margin-top: 30px; 
             width: 100%;
-            overflow-x: auto; /* Permite deslizar si la pantalla es ultra pequeña */
+            overflow-x: auto; 
             padding-bottom: 10px;
         }
         .time-box { 
@@ -180,25 +176,23 @@
 
         /* --- ITINERARIO --- */
         .timeline { position: relative; max-width: 800px; margin: 0 auto; padding: 40px 0; }
-        /* Ajuste de la línea para que termine con el último elemento */
         .timeline::before { content: ''; position: absolute; left: 50%; top: 40px; height: calc(100% - 80px); width: 2px; background: var(--creme-white); opacity: 0.5; }
         .timeline-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px; position: relative; width: 100%; }
-        .timeline-item:last-child { margin-bottom: 0; } /* Evita margen residual al final */
+        .timeline-item:last-child { margin-bottom: 0; } 
         .timeline-item:nth-child(even) { flex-direction: row-reverse; }
         .timeline-content { width: 42%; padding: 30px; text-align: center; border-left: 3px solid var(--dark-ruby); }
         .timeline-item:nth-child(even) .timeline-content { border-left: none; border-right: 3px solid var(--dark-ruby); }
         .timeline-icon { position: absolute; left: 50%; transform: translateX(-50%); background: var(--armor-wash); border: 2px solid var(--creme-white); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2; color: var(--creme-white); font-size: 1.2rem; box-shadow: 0 0 15px rgba(0,0,0,0.5);}
 
-        /* --- MAPAS CORREGIDOS --- */
+        /* --- MAPAS --- */
         .map-container { 
             width: 100%; 
             margin-top: 25px; 
             border: 2px solid rgba(195, 183, 157, 0.4); 
             border-radius: 12px; 
-            overflow: hidden; /* Asegura que el iframe respete los bordes */
-            background: #eee; /* Fondo de respaldo */
+            overflow: hidden; 
+            background: #eee; 
         }
-        /* Se eliminó el filter grayscale para que los mapas sean 100% visibles */
         .map-container iframe { width: 100%; height: 250px; display: block; border: none; }
 
         /* --- ANIMACIONES PREMIUM DE ENTRADA --- */
@@ -219,7 +213,7 @@
 
         @media (max-width: 768px) {
             h1 { font-size: 3.5rem; }
-            /* Ajustes línea de tiempo móvil */
+            .envelope-letter h2 { font-size: 3rem; }
             .timeline::before { left: 30px; top: 40px; height: calc(100% - 80px); }
             .timeline-item, .timeline-item:nth-child(even) { flex-direction: column; align-items: flex-end; }
             .timeline-content { width: calc(100% - 70px); text-align: left; border-left: 3px solid var(--dark-ruby) !important; border-right: none !important; margin-bottom: 20px;}
@@ -412,15 +406,6 @@
                     <h3 style="font-family: var(--fuente-titulos); font-size: 1.8rem; margin-bottom: 25px; text-align: center; color: var(--dark-ruby);">Confirmar Asistencia</h3>
                     
                     <input type="text" id="guestName" placeholder="Tu nombre completo">
-                    
-                    <select id="guestCount">
-                        <option value="" disabled selected>Pases a confirmar</option>
-                        <option value="1">1 Persona</option>
-                        <option value="2">2 Personas</option>
-                        <option value="3">3 Personas</option>
-                        <option value="4">4 Personas</option>
-                        <option value="5">5 Personas</option>
-                    </select>
 
                     <select id="attendance">
                         <option value="Sí asistiré con mucho gusto">Sí asistiré</option>
@@ -443,7 +428,6 @@
                     <button class="btn btn-whatsapp" style="width: 100%; background: var(--dark-ruby); color: #fff; box-shadow: 0 4px 15px rgba(112, 0, 14, 0.3);" onclick="sendWishWhatsApp()">
                         <i class="fa-regular fa-paper-plane" style="font-size: 1.2rem;"></i> Enviar Mensaje
                     </button>
-                    <!-- Regla CSS especial insertada para corregir el hover de este botón en particular -->
                     <style>.slide-right .btn-whatsapp:hover { background: #8f0012; box-shadow: 0 8px 25px rgba(112, 0, 14, 0.4);}</style>
                 </div>
 
@@ -560,15 +544,14 @@
 
         function sendConfirmationWhatsApp() {
             const name = document.getElementById('guestName').value.trim();
-            const count = document.getElementById('guestCount').value;
             const attend = document.getElementById('attendance').value;
 
-            if(!name || !count) {
-                alert("Por favor, ingresa tu nombre y el número de pases para continuar.");
+            if(!name) {
+                alert("Por favor, ingresa tu nombre para continuar.");
                 return;
             }
 
-            const text = `¡Hola Dalia! Soy *${name}*.\n\nTe escribo para confirmar que *${attend}* a tus XV Años.\nSeremos *${count} persona(s)* en total.\n\n¡Gracias por la invitación!`;
+            const text = `¡Hola Dalia! Soy *${name}*.\n\nTe escribo para confirmar que *${attend}* a tus XV Años.\n\n¡Gracias por la invitación!`;
             const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
             window.open(url, '_blank');
         }
